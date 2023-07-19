@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clip Localization</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2 class="title">Clip Localization</h2>
+        <div class="model-selection">
+            <div class="model-selection-left">
+                <form method="POST" action="/">
+                    <select id="model-selection-yolo" name="model_selection_yolo" onchange="this.form.submit()">
+                        {% for model in yolo_models %}
+                            <option value="{{ model }}" {% if selected_model_yolo == model %}selected{% endif %}>{{ model }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="hidden" name="old_model_selection_yolo" value="{{ selected_model_yolo }}">
+                </form>
+            </div>
+            <div class="model-selection-right offset-right">
+                <form method="POST" action="/">
+                    <select id="model-selection-fasterrcnn" name="model_selection_fasterrcnn" onchange="this.form.submit()">
+                        {% for model in fasterrcnn_models %}
+                            <option value="{{ model }}" {% if selected_model_fasterrcnn == model %}selected{% endif %}>{{ model }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="hidden" name="old_model_selection_fasterrcnn" value="{{ selected_model_fasterrcnn }}">
+                </form>
+            </div>
+        </div>
+        <div class="image-container">
+            <div class="image-box">
+                <h3>YOLO</h3>
+                <img class="image" src="data:image/jpeg;base64,{{ image_str_yolo }}" />
+                <p class="image-info">{{ info_text_yolo }}</p>
+            </div>
+            <div class="image-box">
+                <h3>Faster R-CNN</h3>
+                <img class="image" src="data:image/jpeg;base64,{{ image_str_fasterrcnn }}" />
+                <p class="image-info">{{ info_text_fasterrcnn }}</p>
+            </div>
+        </div>
+        <div class="button-container">
+            <form method="POST" action="/">
+                <button class="button" type="submit" name="backward" value="backward">Backward</button>
+                <button class="button" type="submit" name="forward" value="forward">Forward</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

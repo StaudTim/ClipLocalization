@@ -1,0 +1,7 @@
+names:
+- clip
+nc: 1
+
+test: clip/test/images
+train: clip/train/images
+val: clip/validation/images

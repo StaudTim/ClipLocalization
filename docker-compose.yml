@@ -1,0 +1,9 @@
+version: '2'
+services:
+  clip:
+    build: .
+    volumes:
+      - ./src/test_images:/src/test_images
+      - ./src/models:/src/models
+    ports:
+      - "8080:8000"
